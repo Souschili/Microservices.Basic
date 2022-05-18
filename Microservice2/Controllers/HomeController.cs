@@ -1,14 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Microservice2.Controllers
 {
     [Route("[controller]")]
     public class HomeController : Controller
     {
-        [HttpGet("index")]
-        public string Index()
+        public HomeController(IHttpClientFactory httpClient)
         {
-            return "String from service 2";
+            _httpClient = httpClient;
+        }
+
+        private IHttpClientFactory _httpClient { get; }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> Index()
+        {
+
+            var client=_httpClient.CreateClient();
+
+           var getResult=await client.GetAsync("https://localhost:5001/home/index");
+
+            var responce=await getResult.Content.ReadAsStringAsync();
+
+            return Ok(responce);
         }
     }
 }

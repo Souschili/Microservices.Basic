@@ -5,10 +5,10 @@ namespace Microservice1.Controllers
     [Route("[controller]")]
     public class HomeController : ControllerBase
     {
-        [HttpGet("index")]
+        [HttpGet("[action]")]
         public string Index()
         {
-            return "String from service 1";
+            return "Responce from service 1";
         }
     }
 }

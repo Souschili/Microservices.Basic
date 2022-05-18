@@ -10,6 +10,8 @@ namespace Microservice2
         
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient();
+
             services.AddControllers();
         }
 
